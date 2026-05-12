@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Business Analyst — Join Our Team</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f3ee;--surface:#ffffff;--surface2:#f0ede6;
+  --ink:#1a1814;--ink2:#4a4540;--ink3:#8a837a;
+  --accent:#c8410a;--accent2:#e85d1a;
+  --border:#ddd8d0;--border2:#c8c2b8;--green:#1a7a4a;
+  --mono:'DM Mono',monospace;--serif:'Fraunces',serif;--sans:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh}
+
+.prog-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:12px 32px;display:flex;align-items:center}
+.prog-step{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:0.06em;padding:0 16px;transition:color 0.2s}
+.prog-step.active{color:var(--accent)}.prog-step.done{color:var(--green)}
+.prog-step .num{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.prog-step.active .num{background:var(--accent);border-color:var(--accent);color:#fff}
+.prog-step.done .num{background:var(--green);border-color:var(--green);color:#fff}
+.prog-divider{flex:1;height:1px;background:var(--border);min-width:12px}
+@media(max-width:600px){.prog-step .label{display:none}.prog-divider{min-width:4px}.prog-step{padding:0 6px}}
+
+.page{display:none;min-height:100vh;padding-top:64px;animation:fadeUp 0.4s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAGE 1 */
+.jd-hero{background:var(--ink);color:#f5f3ee;padding:72px 40px 64px;position:relative;overflow:hidden}
+.jd-hero::after{content:'';position:absolute;bottom:0;right:0;width:320px;height:320px;border:1px solid rgba(255,255,255,0.05);border-radius:50%;transform:translate(40%,40%);pointer-events:none}
+.jd-hero::before{content:'';position:absolute;top:-80px;left:-60px;width:200px;height:200px;border:1px solid rgba(200,65,10,0.2);border-radius:50%;pointer-events:none}
+.jd-badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);border:1px solid rgba(200,65,10,0.4);padding:5px 14px;border-radius:2px;margin-bottom:20px}
+.jd-hero h1{font-family:var(--serif);font-size:clamp(34px,6vw,60px);font-weight:300;line-height:1.1;margin-bottom:6px;letter-spacing:-0.02em}
+.jd-hero h1 em{font-style:italic;color:var(--accent2)}
+.jd-hero-sub{font-family:var(--mono);font-size:11px;color:rgba(245,243,238,0.45);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px}
+.jd-hero p{font-size:15px;color:rgba(245,243,238,0.6);max-width:520px;line-height:1.7}
+.jd-hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.meta-chip{font-family:var(--mono);font-size:11px;padding:6px 14px;border:1px solid rgba(245,243,238,0.2);color:rgba(245,243,238,0.7);border-radius:2px;letter-spacing:0.04em}
+
+.jd-body{max-width:900px;margin:0 auto;padding:48px 32px}
+.jd-section{margin-bottom:48px}
+.jd-section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.jd-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.team-card{background:var(--surface);border:1px solid var(--border);padding:20px 22px;border-radius:4px;transition:border-color 0.2s,transform 0.2s}
+.team-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.team-card h3{font-family:var(--serif);font-size:17px;font-weight:400;margin-bottom:8px}
+.team-card p{font-size:12px;color:var(--ink3);line-height:1.6}
+
+.role-block{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:16px}
+.role-block-head{padding:16px 22px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+.role-block-head h3{font-family:var(--serif);font-size:18px;font-weight:400}
+.role-block-head .tog{font-family:var(--mono);font-size:20px;color:var(--ink3);line-height:1}
+.role-block-body{padding:22px;display:none}
+.role-block-body.open{display:block}
+.role-block-body p{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:12px}
+.kra-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.kra-tag{font-family:var(--mono);font-size:11px;padding:5px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:2px;color:var(--ink2)}
+
+.skills-three{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.skill-group{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:18px 20px}
+.skill-group-label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px}
+.sk{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:2px;border:1px solid}
+.sk.must{color:#7a3a00;background:#fef3e2;border-color:#f5d7a8}
+.sk.good{color:#1a4a6a;background:#e8f0fb;border-color:#b8cff0}
+.sk.soft{color:#3a1a6a;background:#ede8fc;border-color:#c8a8f0}
+
+.req-two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:560px){.req-two-col{grid-template-columns:1fr}}
+.req-block h4{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:var(--ink3);margin-bottom:12px;text-transform:uppercase}
+.req-block ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.req-block li{font-size:13px;color:var(--ink2);padding-left:16px;position:relative;line-height:1.5}
+.req-block li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:12px}
+
+.info-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.info-pill{font-family:var(--mono);font-size:12px;padding:8px 16px;background:var(--ink);color:#f5f3ee;border-radius:2px}
+
+/* FORM */
+.form-wrap{max-width:760px;margin:0 auto;padding:48px 32px}
+.form-page-title{font-family:var(--serif);font-size:clamp(24px,4vw,36px);font-weight:300;margin-bottom:6px}
+.form-page-sub{font-size:13px;color:var(--ink3);margin-bottom:36px;font-family:var(--mono);letter-spacing:0.03em}
+.fsec{margin-bottom:32px}
+.fsec-label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.fg{grid-template-columns:1fr}}
+.fi{display:flex;flex-direction:column;gap:6px}
+.fi.full{grid-column:1/-1}
+label{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink3)}
+label .req{color:var(--accent)}
+.fhint{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:3px}
+input[type=text],input[type=email],input[type=url],input[type=number],select,textarea{background:var(--surface);border:1px solid var(--border);color:var(--ink);font-family:var(--sans);font-size:14px;padding:10px 14px;border-radius:3px;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,65,10,0.1)}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a837a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer}
+textarea{resize:vertical;min-height:90px;line-height:1.6}
+.err{font-size:11px;color:var(--accent);font-family:var(--mono);display:none;margin-top:2px}
+.fi.invalid input,.fi.invalid select,.fi.invalid textarea{border-color:var(--accent)}
+.fi.invalid .err{display:block}
+.cur-wrap{position:relative}
+.cur-wrap::before{content:'₹';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:13px;color:var(--ink3);pointer-events:none;z-index:1}
+.cur-wrap input{padding-left:28px}
+.divider-sm{height:1px;background:var(--border);margin:24px 0}
+
+/* SKILL RATINGS */
+.sr-grid{display:flex;flex-direction:column;gap:14px}
+.sr-head{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin:20px 0 8px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.sr-head:first-child{margin-top:0}
+.sr-row{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:18px 22px}
+.sr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sr-name{font-size:14px;font-weight:500;color:var(--ink)}
+.sr-name small{font-family:var(--mono);font-size:10px;color:var(--ink3);font-weight:400;margin-left:8px}
+.sr-score{font-family:var(--mono);font-size:22px;font-weight:500;min-width:40px;text-align:right;transition:color 0.2s}
+.sr-row input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--border2);cursor:pointer;border:none;box-shadow:none;padding:0}
+.sr-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--surface);transition:transform 0.15s}
+.sr-row input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.sr-labels{display:flex;justify-content:space-between;margin-top:8px}
+.sr-labels span{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.sr-checks{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);align-items:center}
+.sr-checks .lbl{font-family:var(--mono);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap}
+.xc{display:flex;align-items:center;gap:5px;cursor:pointer}
+.xc input[type=checkbox]{accent-color:var(--accent);width:13px;height:13px;cursor:pointer}
+.xc span{font-size:12px;color:var(--ink2)}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:12px;align-items:center;margin-top:36px;padding-top:28px;border-top:1px solid var(--border)}
+.btn-p{background:var(--ink);color:#f5f3ee;font-family:var(--sans);font-size:14px;font-weight:500;padding:12px 32px;border:none;border-radius:3px;cursor:pointer;transition:background 0.2s,transform 0.15s}
+.btn-p:hover{background:var(--accent);transform:translateY(-1px)}
+.btn-p:disabled{background:var(--ink3);cursor:not-allowed;transform:none}
+.btn-s{background:transparent;color:var(--ink3);font-family:var(--sans);font-size:14px;padding:12px 24px;border:1px solid var(--border);border-radius:3px;cursor:pointer;transition:border-color 0.2s,color 0.2s}
+.btn-s:hover{border-color:var(--ink);color:var(--ink)}
+
+/* SUCCESS */
+.sw{max-width:600px;margin:0 auto;padding:80px 32px;text-align:center}
+.si{width:64px;height:64px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:28px}
+.sw h2{font-family:var(--serif);font-size:32px;font-weight:300;margin-bottom:12px}
+.sw p{font-size:14px;color:var(--ink3);line-height:1.8;max-width:440px;margin:0 auto}
+.sw .aid{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:24px;padding:10px 20px;border:1px solid var(--border);border-radius:2px;display:inline-block}
+</style>
+</head>
+<body>
+
+<nav class="prog-nav">
+  <div class="prog-step active" id="ps1"><span class="num">1</span><span class="label">Overview</span></div>
+  <div class="prog-divider"></div>
+  <div class="prog-step" id="ps2"><span class="num">2</span><span class="label">Your Details</span></div>
+  <div class="prog-divider"></div>
+  <div class="prog-step" id="ps3"><span class="num">3</span><span class="label">Skill Ratings</span></div>
+  <div class="prog-divider"></div>
+  <div class="prog-step" id="ps4"><span class="num">4</span><span class="label">Done</span></div>
+</nav>
+
+<!-- ══════════ PAGE 1: OVERVIEW -->
+<div class="page active" id="page1">
+  <div class="jd-hero">
+    <div style="max-width:900px;margin:0 auto">
+      <div class="jd-badge">Hiring · 2026</div>
+      <h1>Business <em>Analyst</em></h1>
+      <p class="jd-hero-sub">Offline Vertical &nbsp;·&nbsp; Central Analytics Team</p>
+      <p>We're growing our analytics function across four core teams. If you live in data and love turning numbers into decisions — read on.</p>
+      <div class="jd-hero-meta">
+        <span class="meta-chip">📍 Corporate Office, Noida — Sector 62</span>
+        <span class="meta-chip">💼 Individual Contributor</span>
+        <span class="meta-chip">🕐 1–3 Years Experience</span>
+        <span class="meta-chip">🏷 Associate / Senior Associate</span>
+        <span class="meta-chip">⚡ Full-Time · On-site</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="jd-body">
+
+    <div class="jd-section">
+      <div class="jd-section-label">Open Teams</div>
+      <div class="teams-grid">
+        <div class="team-card"><h3>Counselling</h3><p>Drive funnel analytics, conversion tracking, and revenue insights across centres.</p></div>
+        <div class="team-card"><h3>Operations</h3><p>Own ops dashboards, SLA metrics, and process efficiency data.</p></div>
+        <div class="team-card"><h3>Category Marketing</h3><p>Be the analytical layer between media spends and business outcomes.</p></div>
+        <div class="team-card"><h3>Academics</h3><p>Track NPS, test performance, talent nurture, and central academic ops.</p></div>
+      </div>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-label">Role Details — What You'll Own</div>
+
+      <div class="role-block">
+        <div class="role-block-head" onclick="toggleRole(this)"><h3>Counselling Team</h3><span class="tog">+</span></div>
+        <div class="role-block-body">
+          <p>You'll be the analytical backbone for the counselling business — owning the dashboards leadership depends on and finding signal in a noisy sales funnel.</p>
+          <p>Own and manage central Power BI dashboards tracking key business metrics across centres. Analyse end-to-end sales funnels — lead generation, qualification, conversions to registrations and admissions, along with retention and performance metrics to drive revenue growth.</p>
+          <p>Deliver actionable insights through weekly/monthly business reviews with leadership. Write complex SQL queries and handle large datasets. Perform data cleaning, transformation, and automation using Python. Monitor KPIs, identify trends and gaps, and proactively recommend interventions.</p>
+          <div class="kra-list">
+            <span class="kra-tag">Funnel Analytics</span><span class="kra-tag">Power BI Dashboards</span><span class="kra-tag">SQL Reporting</span><span class="kra-tag">Python Automation</span><span class="kra-tag">Business Reviews</span><span class="kra-tag">KPI Monitoring</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-block">
+        <div class="role-block-head" onclick="toggleRole(this)"><h3>Category Marketing Team</h3><span class="tog">+</span></div>
+        <div class="role-block-body">
+          <p>The core of the job is being the analytical layer between media buying and business outcomes — translating raw platform data (Google Ads, Meta, etc.) into decisions about where money should go.</p>
+          <p>You can spot whether a performance issue is a data problem or a campaign structure problem. Your analysis directly informs budget allocation, creative strategy, and channel mix.</p>
+          <div class="kra-list">
+            <span class="kra-tag">Campaign Performance Analysis</span><span class="kra-tag">Budgeting & Spend Analysis</span><span class="kra-tag">Reporting & Dashboarding</span><span class="kra-tag">A/B Testing & Experimentation</span><span class="kra-tag">Audience & Attribution Analysis</span><span class="kra-tag">Cross-functional Collaboration</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-block">
+        <div class="role-block-head" onclick="toggleRole(this)"><h3>Operations Team</h3><span class="tog">+</span></div>
+        <div class="role-block-body">
+          <p>You'll track operational efficiency — from SLA compliance and TAT analysis to process bottlenecks. Your analysis will directly feed decisions on ground operations and process improvement.</p>
+          <div class="kra-list">
+            <span class="kra-tag">Ops KPI Tracking</span><span class="kra-tag">SLA & TAT Analysis</span><span class="kra-tag">Process Efficiency</span><span class="kra-tag">Ops Dashboards</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-block">
+        <div class="role-block-head" onclick="toggleRole(this)"><h3>Academics Team</h3><span class="tog">+</span></div>
+        <div class="role-block-body">
+          <p>You'll support the central academic ops function — tracking NPS across cohorts, running test performance analysis, supporting talent nurture initiatives, and owning central academic ops tasks. At-risk identification is part of the work but a smaller slice of a broader mandate.</p>
+          <div class="kra-list">
+            <span class="kra-tag">NPS Tracking & Analysis</span><span class="kra-tag">Test Performance Analysis</span><span class="kra-tag">Talent Nurture Support</span><span class="kra-tag">Central Acad Ops Tasks</span><span class="kra-tag">Outcome Reporting</span><span class="kra-tag">Attendance & Engagement</span><span class="kra-tag">At-Risk Flagging</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-label">What You Need to Know</div>
+      <div class="skills-three">
+        <div class="skill-group">
+          <div class="skill-group-label">Technical — Must Have</div>
+          <div class="skill-tags">
+            <span class="sk must">SQL</span><span class="sk must">Power BI</span><span class="sk must">Excel / GSheets</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Technical — Good to Have</div>
+          <div class="skill-tags">
+            <span class="sk good">Python (pandas)</span><span class="sk good">Statistics</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Soft Skills</div>
+          <div class="skill-tags">
+            <span class="sk soft">Analytical Mindset</span><span class="sk soft">Problem Solving</span><span class="sk soft">Stakeholder Management</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-label">Requirements</div>
+      <div class="req-two-col">
+        <div class="req-block">
+          <h4>Must Have</h4>
+          <ul>
+            <li>1–3 years of relevant analytical experience</li>
+            <li>Proficiency in SQL for querying and analysis</li>
+            <li>Hands-on with Excel / Google Sheets</li>
+            <li>Experience building dashboards in Power BI</li>
+            <li>Ability to independently own a problem end-to-end</li>
+          </ul>
+        </div>
+        <div class="req-block">
+          <h4>Good to Have</h4>
+          <ul>
+            <li>Strong problem-solving with attention to detail</li>
+            <li>Comfortable presenting insights to stakeholders</li>
+            <li>Ability to work in a fast-paced, high-ownership environment</li>
+            <li>Python (pandas) for data manipulation</li>
+            <li>Understanding of business funnels or ed-tech context</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="jd-section">
+      <div class="jd-section-label">Location & Role Type</div>
+      <div class="info-row">
+        <span class="info-pill">📍 Corporate Office — Noida, Sector 62</span>
+        <span class="info-pill">🏢 On-site, Full-time</span>
+        <span class="info-pill">👤 Individual Contributor</span>
+        <span class="info-pill">🏷 Associate / Senior Associate</span>
+      </div>
+    </div>
+
+    <div class="btn-row" style="border-top:none;padding-top:0">
+      <button class="btn-p" onclick="goTo(2)">Apply Now →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE 2: YOUR DETAILS -->
+<div class="page" id="page2">
+  <div class="form-wrap">
+    <h2 class="form-page-title">Tell us about yourself</h2>
+    <p class="form-page-sub">// page 02 of 03 &nbsp;·&nbsp; personal & professional details</p>
+
+    <div class="fsec">
+      <div class="fsec-label">Personal Information</div>
+      <div class="fg">
+        <div class="fi" id="f-fn"><label>First Name <span class="req">*</span></label><input type="text" id="fn" placeholder="First name"/><span class="err">Required</span></div>
+        <div class="fi" id="f-ln"><label>Last Name <span class="req">*</span></label><input type="text" id="ln" placeholder="Last name"/><span class="err">Required</span></div>
+        <div class="fi" id="f-em"><label>Email <span class="req">*</span></label><input type="email" id="em" placeholder="you@email.com"/><span class="err">Valid email required</span></div>
+        <div class="fi" id="f-ph"><label>Phone Number <span class="req">*</span></label><input type="text" id="ph" placeholder="+91 98XXX XXXXX"/><span class="err">Required</span></div>
+        <div class="fi" id="f-city"><label>Current City <span class="req">*</span></label><input type="text" id="city" placeholder="e.g. Delhi, Noida, Gurgaon"/><span class="err">Required</span></div>
+        <div class="fi"><label>LinkedIn Profile</label><input type="url" id="li" placeholder="https://linkedin.com/in/..."/></div>
+      </div>
+    </div>
+
+    <div class="divider-sm"></div>
+
+    <div class="fsec">
+      <div class="fsec-label">Academic Background</div>
+      <div class="fg">
+        <div class="fi" id="f-edu">
+          <label>Highest Qualification <span class="req">*</span></label>
+          <select id="edu">
+            <option value="">Select</option>
+            <option>B.Tech / B.E.</option><option>B.Sc / B.Com / B.A.</option>
+            <option>MBA / PGDM</option><option>M.Sc / M.Tech</option>
+            <option>BCA / MCA</option><option>Other</option>
+          </select><span class="err">Required</span>
+        </div>
+        <div class="fi"><label>Field of Study</label><input type="text" id="fos" placeholder="e.g. Statistics, Computer Science"/></div>
+        <div class="fi"><label>College / University</label><input type="text" id="col" placeholder="Institution name"/></div>
+        <div class="fi"><label>Graduation Year</label><input type="number" id="gyear" placeholder="e.g. 2023" min="2010" max="2026"/></div>
+      </div>
+    </div>
+
+    <div class="divider-sm"></div>
+
+    <div class="fsec">
+      <div class="fsec-label">Applying For</div>
+      <div class="fg">
+        <div class="fi" id="f-desig">
+          <label>Designation <span class="req">*</span></label>
+          <select id="desig">
+            <option value="">Select</option>
+            <option>Associate — Business Analyst</option>
+            <option>Senior Associate — Business Analyst</option>
+          </select><span class="err">Required</span>
+        </div>
+        <div class="fi" id="f-team">
+          <label>Preferred Team <span class="req">*</span></label>
+          <select id="team">
+            <option value="">Select</option>
+            <option>Counselling</option><option>Operations</option>
+            <option>Category Marketing</option><option>Academics</option>
+            <option>No preference</option>
+          </select><span class="err">Required</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-sm"></div>
+
+    <div class="fsec">
+      <div class="fsec-label">Work Experience</div>
+      <div class="fg">
+        <div class="fi" id="f-exp">
+          <label>Total Experience <span class="req">*</span></label>
+          <select id="exp">
+            <option value="">Select</option>
+            <option>0–6 months (Fresher)</option><option>6 months – 1 year</option>
+            <option>1–2 years</option><option>2–3 years</option><option>3+ years</option>
+          </select><span class="err">Required</span>
+        </div>
+        <div class="fi">
+          <label>Notice Period</label>
+          <select id="notice">
+            <option value="">Select</option>
+            <option>Immediately available</option><option>15 days</option>
+            <option>30 days</option><option>60 days</option><option>90 days</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-sm"></div>
+
+    <div class="fsec">
+      <div class="fsec-label">Current / Last Company</div>
+      <div class="fg">
+        <div class="fi"><label>Company Name</label><input type="text" id="comp" placeholder="Company name (or 'Fresher')"/></div>
+        <div class="fi"><label>Your Role / Designation</label><input type="text" id="role" placeholder="e.g. Data Analyst, BI Intern"/></div>
+        <div class="fi full"><label>Key Responsibilities</label><textarea id="resp" rows="3" placeholder="What did you own and deliver in this role?"></textarea></div>
+      </div>
+    </div>
+
+    <div class="divider-sm"></div>
+
+    <div class="fsec">
+      <div class="fsec-label">Salary Details</div>
+      <div class="fg">
+        <div class="fi">
+          <label>Current CTC (Annual)</label>
+          <div class="cur-wrap"><input type="number" id="ctc-cur" placeholder="e.g. 600000" min="0"/></div>
+          <span class="fhint">// enter amount in ₹ — e.g. 600000 for 6 LPA</span>
+        </div>
+        <div class="fi">
+          <label>Expected CTC (Annual)</label>
+          <div class="cur-wrap"><input type="number" id="ctc-exp" placeholder="e.g. 900000" min="0"/></div>
+          <span class="fhint">// enter amount in ₹</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-sm"></div>
+
+    <div class="fsec">
+      <div class="fsec-label">Resume & Introduction</div>
+      <div class="fg">
+        <div class="fi full" id="f-cv">
+          <label>Resume Link <span class="req">*</span></label>
+          <input type="url" id="cv" placeholder="Paste Google Drive / Dropbox link"/>
+          <span class="fhint">⚠ Please ensure the link is set to <strong>Viewer access</strong> — anyone with the link can view. We will not be able to review restricted links.</span>
+          <span class="err">Required — paste a shareable viewer link</span>
+        </div>
+        <div class="fi full" id="f-intro">
+          <label>Brief Introduction <span class="req">*</span></label>
+          <textarea id="intro" rows="4" placeholder="Who are you as an analyst? What kind of problems have you solved with data? What does your typical workflow look like?"></textarea>
+          <span class="err">Please write at least a line or two</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-s" onclick="goTo(1)">← Back</button>
+      <button class="btn-p" onclick="validateAndGo(2,3)">Next: Skill Ratings →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE 3: SKILL RATINGS -->
+<div class="page" id="page3">
+  <div class="form-wrap">
+    <h2 class="form-page-title">Rate your skills</h2>
+    <p class="form-page-sub">// page 03 of 03 &nbsp;·&nbsp; be honest — this helps us place you in the right team</p>
+
+    <div class="sr-grid">
+
+      <div class="sr-head">Technical — Must Have</div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">SQL <small>queries · joins · aggregations · window functions</small></span><span class="sr-score" id="sql-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('sql',this.value)"/>
+        <div class="sr-labels"><span>Beginner</span><span>Familiar</span><span>Proficient</span><span>Advanced</span><span>Expert</span></div>
+        <div class="sr-checks">
+          <span class="lbl">Worked with:</span>
+          <label class="xc"><input type="checkbox" class="sql-exp" value="MySQL"/><span>MySQL</span></label>
+          <label class="xc"><input type="checkbox" class="sql-exp" value="PostgreSQL"/><span>PostgreSQL</span></label>
+          <label class="xc"><input type="checkbox" class="sql-exp" value="BigQuery"/><span>BigQuery</span></label>
+          <label class="xc"><input type="checkbox" class="sql-exp" value="Redshift"/><span>Redshift</span></label>
+          <label class="xc"><input type="checkbox" class="sql-exp" value="MSSQL"/><span>MSSQL</span></label>
+        </div>
+      </div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Power BI <small>DAX · data modelling · report building</small></span><span class="sr-score" id="pbi-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('pbi',this.value)"/>
+        <div class="sr-labels"><span>Never used</span><span>Basic</span><span>Intermediate</span><span>Advanced</span><span>Expert</span></div>
+        <div class="sr-checks">
+          <span class="lbl">Done this:</span>
+          <label class="xc"><input type="checkbox" class="pbi-exp" value="Built reports from scratch"/><span>Built reports</span></label>
+          <label class="xc"><input type="checkbox" class="pbi-exp" value="Written DAX measures"/><span>Written DAX</span></label>
+          <label class="xc"><input type="checkbox" class="pbi-exp" value="Power Query"/><span>Power Query</span></label>
+          <label class="xc"><input type="checkbox" class="pbi-exp" value="Row-level security"/><span>RLS</span></label>
+        </div>
+      </div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Excel / Google Sheets <small>formulas · pivot tables · dashboards</small></span><span class="sr-score" id="xl-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('xl',this.value)"/>
+        <div class="sr-labels"><span>Beginner</span><span>Familiar</span><span>Proficient</span><span>Advanced</span><span>Expert</span></div>
+        <div class="sr-checks">
+          <span class="lbl">Comfortable with:</span>
+          <label class="xc"><input type="checkbox" class="xl-exp" value="VLOOKUP/XLOOKUP"/><span>XLOOKUP</span></label>
+          <label class="xc"><input type="checkbox" class="xl-exp" value="Pivot Tables"/><span>Pivot Tables</span></label>
+          <label class="xc"><input type="checkbox" class="xl-exp" value="Array Formulas"/><span>Array Formulas</span></label>
+          <label class="xc"><input type="checkbox" class="xl-exp" value="Macros/VBA"/><span>Macros/VBA</span></label>
+          <label class="xc"><input type="checkbox" class="xl-exp" value="AppScript"/><span>AppScript</span></label>
+        </div>
+      </div>
+
+      <div class="sr-head">Technical — Good to Have</div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Python <small>pandas · numpy · automation · data wrangling</small></span><span class="sr-score" id="py-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('py',this.value)"/>
+        <div class="sr-labels"><span>Beginner</span><span>Familiar</span><span>Proficient</span><span>Advanced</span><span>Expert</span></div>
+        <div class="sr-checks">
+          <span class="lbl">Libraries:</span>
+          <label class="xc"><input type="checkbox" class="py-exp" value="pandas"/><span>pandas</span></label>
+          <label class="xc"><input type="checkbox" class="py-exp" value="numpy"/><span>numpy</span></label>
+          <label class="xc"><input type="checkbox" class="py-exp" value="matplotlib/seaborn"/><span>matplotlib</span></label>
+          <label class="xc"><input type="checkbox" class="py-exp" value="scikit-learn"/><span>scikit-learn</span></label>
+          <label class="xc"><input type="checkbox" class="py-exp" value="API calls"/><span>API calls</span></label>
+        </div>
+      </div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Statistics <small>hypothesis testing · distributions · A/B testing</small></span><span class="sr-score" id="st-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('st',this.value)"/>
+        <div class="sr-labels"><span>Beginner</span><span>Familiar</span><span>Proficient</span><span>Advanced</span><span>Expert</span></div>
+      </div>
+
+      <div class="sr-head">Soft Skills</div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Analytical Mindset <small>breaking down ambiguous problems · first-principles thinking</small></span><span class="sr-score" id="am-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('am',this.value)"/>
+        <div class="sr-labels"><span>Developing</span><span>Getting there</span><span>Confident</span><span>Strong</span><span>Very strong</span></div>
+      </div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Problem Solving <small>structuring problems · root cause analysis · prioritisation</small></span><span class="sr-score" id="ps-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('ps',this.value)"/>
+        <div class="sr-labels"><span>Developing</span><span>Getting there</span><span>Confident</span><span>Strong</span><span>Very strong</span></div>
+      </div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Stakeholder Management <small>managing expectations · communicating upwards · presentations</small></span><span class="sr-score" id="sm-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('sm',this.value)"/>
+        <div class="sr-labels"><span>Developing</span><span>Getting there</span><span>Confident</span><span>Strong</span><span>Very strong</span></div>
+      </div>
+
+      <div class="sr-row">
+        <div class="sr-top"><span class="sr-name">Business Communication <small>written · verbal · translating data to decisions</small></span><span class="sr-score" id="bc-val">5</span></div>
+        <input type="range" min="1" max="10" value="5" step="1" oninput="ur('bc',this.value)"/>
+        <div class="sr-labels"><span>Developing</span><span>Getting there</span><span>Confident</span><span>Strong</span><span>Very strong</span></div>
+      </div>
+
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-s" onclick="goTo(2)">← Back</button>
+      <button class="btn-p" id="sub-btn" onclick="submitForm()">Submit Application →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE 4: SUCCESS -->
+<div class="page" id="page4">
+  <div class="sw">
+    <div class="si">✓</div>
+    <h2>Application Received</h2>
+    <p>Thank you for applying to the Central Analytics team. We shortlist purely on the quality of your background and skill profile — if you hear back, your application stood out.</p>
+    <p style="margin-top:12px">Our team will review and reach out within <strong>3–5 business days</strong>.</p>
+    <div class="aid" id="app-id"></div>
+    <p style="margin-top:28px;font-size:12px">Questions? Write to us at <span style="color:var(--accent)">careers@yourcompany.com</span></p>
+    <div id="sheet-note" style="display:none;margin-top:20px;background:#fef3e2;border:1px solid #f5d7a8;border-radius:4px;padding:14px 18px;font-size:12px;color:#7a4a00;font-family:var(--mono);line-height:1.7;text-align:left">⚠ Demo mode — SHEET_URL not configured. Set <strong>const SHEET_URL</strong> in the script to your Apps Script Web App URL.</div>
+  </div>
+</div>
+
+<script>
+const SHEET_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+function goTo(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+  for(let i=1;i<=4;i++){
+    const s=document.getElementById('ps'+i);
+    if(!s)return;
+    s.classList.remove('active','done');
+    if(i<n)s.classList.add('done');
+    else if(i===n)s.classList.add('active');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleRole(el){
+  const b=el.nextElementSibling;
+  const t=el.querySelector('.tog');
+  b.classList.toggle('open');
+  t.textContent=b.classList.contains('open')?'−':'+';
+}
+
+function ur(k,v){
+  const el=document.getElementById(k+'-val');
+  if(!el)return;
+  el.textContent=v;
+  const n=parseInt(v);
+  el.style.color=n<=3?'#1a7a4a':n<=5?'#c8a000':n<=7?'#c87000':'#c8410a';
+}
+
+function vf(fid,iid,isEmail){
+  const f=document.getElementById(fid),inp=document.getElementById(iid);
+  if(!f||!inp)return true;
+  const val=inp.value.trim();
+  let ok=!!val;
+  if(isEmail&&val)ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  f.classList.toggle('invalid',!ok);
+  return ok;
+}
+
+function validateAndGo(from,to){
+  let ok=true;
+  if(from===2){
+    ok=vf('f-fn','fn')&&ok; ok=vf('f-ln','ln')&&ok;
+    ok=vf('f-em','em',true)&&ok; ok=vf('f-ph','ph')&&ok;
+    ok=vf('f-city','city')&&ok; ok=vf('f-edu','edu')&&ok;
+    ok=vf('f-exp','exp')&&ok; ok=vf('f-desig','desig')&&ok;
+    ok=vf('f-team','team')&&ok; ok=vf('f-cv','cv')&&ok;
+    const intro=document.getElementById('intro');
+    const iok=intro&&intro.value.trim().length>20;
+    document.getElementById('f-intro').classList.toggle('invalid',!iok);
+    if(!iok)ok=false;
+  }
+  if(!ok){document.querySelector('.invalid')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  goTo(to);
+}
+
+function gc(cls){return Array.from(document.querySelectorAll('.'+cls+':checked')).map(c=>c.value).join(', ');}
+
+async function submitForm(){
+  const btn=document.getElementById('sub-btn');
+  btn.textContent='Submitting…'; btn.disabled=true;
+  const appId='APP-'+Math.random().toString(36).substr(2,8).toUpperCase();
+  const payload={
+    app_id:appId, submitted_at:new Date().toISOString(),
+    first_name:document.getElementById('fn').value.trim(),
+    last_name:document.getElementById('ln').value.trim(),
+    email:document.getElementById('em').value.trim(),
+    phone:document.getElementById('ph').value.trim(),
+    city:document.getElementById('city').value.trim(),
+    linkedin:document.getElementById('li').value.trim(),
+    qualification:document.getElementById('edu').value,
+    field_of_study:document.getElementById('fos').value.trim(),
+    college:document.getElementById('col').value.trim(),
+    graduation_year:document.getElementById('gyear').value.trim(),
+    designation_applied:document.getElementById('desig').value,
+    preferred_team:document.getElementById('team').value,
+    experience:document.getElementById('exp').value,
+    notice_period:document.getElementById('notice').value,
+    current_company:document.getElementById('comp').value.trim(),
+    current_role:document.getElementById('role').value.trim(),
+    responsibilities:document.getElementById('resp').value.trim(),
+    current_ctc:document.getElementById('ctc-cur').value.trim(),
+    expected_ctc:document.getElementById('ctc-exp').value.trim(),
+    resume_link:document.getElementById('cv').value.trim(),
+    intro:document.getElementById('intro').value.trim(),
+    rating_sql:document.getElementById('sql-val').textContent,
+    rating_powerbi:document.getElementById('pbi-val').textContent,
+    rating_excel:document.getElementById('xl-val').textContent,
+    rating_python:document.getElementById('py-val').textContent,
+    rating_stats:document.getElementById('st-val').textContent,
+    rating_analytical_mindset:document.getElementById('am-val').textContent,
+    rating_problem_solving:document.getElementById('ps-val').textContent,
+    rating_stakeholder_mgmt:document.getElementById('sm-val').textContent,
+    rating_communication:document.getElementById('bc-val').textContent,
+    sql_tools:gc('sql-exp'), powerbi_skills:gc('pbi-exp'),
+    excel_skills:gc('xl-exp'), python_libs:gc('py-exp'),
+  };
+  if(SHEET_URL==='YOUR_APPS_SCRIPT_WEB_APP_URL'){
+    console.log('Demo payload:',payload);
+    document.getElementById('app-id').textContent='Application ID: '+appId+' — save this for reference';
+    document.getElementById('sheet-note').style.display='block';
+    goTo(4); return;
+  }
+  try{
+    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    document.getElementById('app-id').textContent='Application ID: '+appId+' — save this for reference';
+    goTo(4);
+  }catch(err){
+    btn.textContent='Submit Application →'; btn.disabled=false;
+    alert('Submission failed — check your connection.\n'+err.message);
+  }
+}
+
+['sql','pbi','xl','py','st','am','ps','sm','bc'].forEach(k=>ur(k,5));
+</script>
+</body>
+</html>
