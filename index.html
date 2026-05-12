@@ -562,7 +562,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.6}
 </div>
 
 <script>
-const SHEET_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw1_C0XPlOgpkRP6Y5S04vGb6ee-7ICq05dwV2QNpLZdiV97eITtekDjTqx6DTcjqwouA/exec';
 
 function goTo(n){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -660,7 +660,7 @@ async function submitForm(){
     sql_tools:gc('sql-exp'), powerbi_skills:gc('pbi-exp'),
     excel_skills:gc('xl-exp'), python_libs:gc('py-exp'),
   };
-  if(SHEET_URL==='YOUR_APPS_SCRIPT_WEB_APP_URL'){
+  if(SHEET_URL==='https://script.google.com/macros/s/AKfycbw1_C0XPlOgpkRP6Y5S04vGb6ee-7ICq05dwV2QNpLZdiV97eITtekDjTqx6DTcjqwouA/exec'){
     console.log('Demo payload:',payload);
     document.getElementById('app-id').textContent='Application ID: '+appId+' — save this for reference';
     document.getElementById('sheet-note').style.display='block';
